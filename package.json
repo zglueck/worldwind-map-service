@@ -1,0 +1,39 @@
+{
+  "name": "@zglueck/worldwind-map-service",
+  "version": "0.1.0",
+  "description": "Simplifies the configuration and setup of map services with the WebWorldWind 3D globe",
+  "main": "lib/MapService.js",
+  "scripts": {
+    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zglueck/worldwind-map-service.git"
+  },
+  "keywords": [
+    "worldwind",
+    "wms",
+    "wmts"
+  ],
+  "author": "Zach Glueckert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zglueck/worldwind-map-service/issues"
+  },
+  "homepage": "https://github.com/zglueck/worldwind-map-service#readme",
+  "dependencies": {
+    "@nasaworldwind/worldwind": "^0.9.0",
+    "query-string": "^6.1.0",
+    "url-parse": "^1.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
+}
