@@ -43,7 +43,7 @@ export default class MapService {
     retrieveWms (url) {
         return new Promise((resolve, reject) => {
             fetch(url)
-                .then(response => new DOMParser().parseFromString(response.text, 'text/xml'))
+                .then(response => new DOMParser().parseFromString(response.text(), 'text/xml'))
                 .then(xml => {
                     try {
                         const wmsCapabilities = new worldwind.WmsCapabilities(xml);
@@ -67,7 +67,7 @@ export default class MapService {
     retrieveWmts (url) {
         return new Promise((resolve, reject) => {
             fetch(url)
-                .then(response => new DOMParser().parseFromString(response.text, 'text/xml'))
+                .then(response => new DOMParser().parseFromString(response.text(), 'text/xml'))
                 .then(xml => {
                     try {
                         const wmtsCapabilities = new worldwind.WmtsCapabilities(xml);
