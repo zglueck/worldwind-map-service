@@ -39,7 +39,7 @@ export default class MapService {
         const wmsCapabilities = new worldwind.WmsCapabilities(xml);
         const namedLayers = wmsCapabilities.getNamedLayers();
         return namedLayers.map(layer => {
-            const layerConfig = layer.formLayerConfiguration(layer);
+            const layerConfig = WorldWind.WmsLayer.formLayerConfiguration(layer);
             return new worldwind.WmsLayer(layerConfig);
         });
     }
