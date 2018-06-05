@@ -10,10 +10,11 @@ export default class MapService {
      * @param {String} url 
      */
     queryService (url) {
-        const wmsUrl = this.buildWmsUrl(url);
-        const wmtsUrl = this.buildWmtsUrl(url);
-
-        return Promise.all(this.retrieveWms(wmsUrl), this.retrieveWmts(wmtsUrl));
+        const self = this;
+        const wmsUrl = self.buildWmsUrl(url);
+        
+        return self.retrieveXml(wmsUrl)
+                    .then(self.getWmsLayers)
     }
 
     buildWmsUrl (url) {
@@ -28,67 +29,18 @@ export default class MapService {
         return parsedUrl.toString();
     }
 
-    buildWmtsUrl (url) {
-        const parsedUrl = new URL(url);
-        const parameters = queryString.parse(parsedUrl.query);
-
-        parameters.service = "WMTS";
-        parameters.request = "GetCapabilities";
-
-        parsedUrl.query = parameters;
-
-        return parsedUrl.toString();
+    retrieveXml (url) {
+        return fetch(serviceAddress)
+                .then(response => response.text())
+                .then(text => new DOMParser().parseFromString(text, 'text/xml'));
     }
 
-    retrieveWms (url) {
-        return new Promise((resolve, reject) => {
-            fetch(url)
-                .then(response => new DOMParser().parseFromString(response.text(), 'text/xml'))
-                .then(xml => {
-                    try {
-                        const wmsCapabilities = new worldwind.WmsCapabilities(xml);
-                        const namedLayers = wmsCapabilities.getNamedLayers();
-                        const wmsLayers = namedLayers.map(layer => {
-                            const wmsConfig = worldwind.WmsLayer.formLayerConfiguration(layer);
-                            return new worldwind.WmsLayer(wmsConfig);
-                        });
-                        resolve(wmsLayers);
-                    } catch (e) {
-                        resolve("no WMS layers found");
-                    }
-                    
-                })
-                .catch(e => {
-                    resolve("no WMS layers found");
-                });
-        });
-    }
-
-    retrieveWmts (url) {
-        return new Promise((resolve, reject) => {
-            fetch(url)
-                .then(response => new DOMParser().parseFromString(response.text(), 'text/xml'))
-                .then(xml => {
-                    try {
-                        const wmtsCapabilities = new worldwind.WmtsCapabilities(xml);
-                        const layers = wmtsCapabilities.getLayers();
-                        const wmtsLayers = layers.map(layer => {
-                            try {
-                                const wmsConfig = worldwind.WmtsLayer.formLayerConfiguration(layer);
-                                return new worldwind.WmtsLayer(wmsConfig);
-                            } catch (e) {
-                                // ignore for now
-                            }
-                        });
-                        resolve(wmtsLayers.filter(wmtsLayer => wmtsLayer));
-                    } catch (e) {
-                        resolve("no WMS layers found");
-                    }
-                    
-                })
-                .catch(e => {
-                    resolve("no WMS layers found");
-                });
+    getWmsLayers (xml) {
+        const wmsCapabilities = new worldwind.WmsCapabilities(xml);
+        const namedLayers = wmsCapabilities.getNamedLayers();
+        return namedLayers.map(layer => {
+            const layerConfig = layer.formLayerConfiguration(layer);
+            return new worldwind.WmsLayer(layerConfig);
         });
     }
 }
