@@ -30,7 +30,7 @@ export default class MapService {
     }
 
     retrieveXml (url) {
-        return fetch(serviceAddress)
+        return fetch(url)
                 .then(response => response.text())
                 .then(text => new DOMParser().parseFromString(text, 'text/xml'));
     }
