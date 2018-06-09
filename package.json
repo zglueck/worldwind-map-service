@@ -24,22 +24,10 @@
   },
   "homepage": "https://github.com/zglueck/worldwind-map-service#readme",
   "dependencies": {
-    "@nasaworldwind/worldwind": "^0.9.0",
     "query-string": "^6.1.0",
     "url-parse": "^1.4.0"
   },
-  "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.7.0",
-    "jasmine-core": "^3.1.0",
-    "karma": "^2.0.2",
-    "karma-cli": "^1.0.1",
-    "karma-jasmine": "^1.1.2",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "karma-requirejs": "^1.1.0",
-    "requirejs": "^2.3.5",
-    "webpack": "^4.12.0",
-    "webpack-cli": "^3.0.3"
+  "peerDependencies": {
+    "@nasaworldwind/worldwind": "^0.9.0"
   }
 }
