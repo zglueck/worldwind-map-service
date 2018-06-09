@@ -1,4 +1,4 @@
-define(['../lib/MapService'], function (MapService) {
+define(['../dist/main'], function (MapService) {
 
     describe("initial test", function () {
         it("should work", function () {

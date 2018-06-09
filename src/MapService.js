@@ -2,7 +2,7 @@ import worldwind from '@nasaworldwind/worldwind';
 import queryString from 'query-string';
 import URL from 'url-parse';
 
-export default class MapService {
+export class MapService {
 
     /**
      * Queries the provided URL for WMS and WMTS data sources returning a Promise to an array of WMS and WMTS layers.
