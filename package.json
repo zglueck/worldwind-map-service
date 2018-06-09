@@ -4,9 +4,6 @@
   "description": "Simplifies the configuration and setup of map services with the WebWorldWind 3D globe",
   "main": "src/MapService.js",
   "scripts": {
-    "test": "npm run dev && karma start",
-    "dev": "webpack --mode development ./src/MapService.js --module-bind js=babel-loader",
-    "build": "webpack --mode production ./src/MapService.js"
   },
   "repository": {
     "type": "git",
