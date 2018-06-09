@@ -2,7 +2,7 @@ import worldwind from '@nasaworldwind/worldwind';
 import queryString from 'query-string';
 import URL from 'url-parse';
 
-export class MapService {
+export default class MapService {
 
     /**
      * Queries the provided URL for WMS and WMTS data sources returning a Promise to an array of WMS and WMTS layers.
@@ -39,7 +39,7 @@ export class MapService {
         const wmsCapabilities = new worldwind.WmsCapabilities(xml);
         const namedLayers = wmsCapabilities.getNamedLayers();
         return namedLayers.map(layer => {
-            const layerConfig = WorldWind.WmsLayer.formLayerConfiguration(layer);
+            const layerConfig = worldwind.WmsLayer.formLayerConfiguration(layer);
             return new worldwind.WmsLayer(layerConfig);
         });
     }
