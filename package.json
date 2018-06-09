@@ -2,7 +2,7 @@
   "name": "@zglueck/worldwind-map-service",
   "version": "0.1.0",
   "description": "Simplifies the configuration and setup of map services with the WebWorldWind 3D globe",
-  "main": "lib/MapService.js",
+  "main": "src/MapService.js",
   "scripts": {
     "dev": "webpack --mode development ./src/MapService.js",
     "build": "webpack --mode production ./src/MapService.js"
