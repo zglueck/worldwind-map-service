@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "Simplifies the configuration and setup of map services with the WebWorldWind 3D globe",
   "main": "src/MapService.js",
-  "scripts": {},
+  "scripts": {
+    "test": "node_modules/jest/bin/jest.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zglueck/worldwind-map-service.git"
@@ -32,6 +34,7 @@
     "babel-jest": "^23.0.1",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
+    "isomorphic-fetch": "^2.2.1",
     "jest": "^23.1.0",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.3"

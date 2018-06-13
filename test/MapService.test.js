@@ -1,18 +1,36 @@
-import MapService from '../src/MapService';
+import MapService from '../src/MapService'
+import 'isomorphic-fetch'
+
+let mapServiceLayers
+
+beforeAll( done => {
+    const mapService = new MapService('https://worldwind25.arc.nasa.gov/wms');
+    mapService.queryService()
+        .then(layers => {
+            mapServiceLayers = layers
+            done()
+        })
+})
+
+describe('Query Service', () => {
+    it ('should contain sixteen wms layers', () => {
+        expect(mapServiceLayers.wms.length).toBe(16)
+    })
+})
 
 describe('WMS URL Builder', () => {
 
     const serviceAddress = 'https://worldwind25.arc.nasa.gov/wms'
 
     it('should create a standard WMS query from a standard service address', () => {
-        const mapService = new MapService()
+        const mapService = new MapService(serviceAddress)
         const url = mapService.buildWmsUrl(serviceAddress)
         
         expect(url).toBe(`${serviceAddress}?service=WMS&request=GetCapabilities`)
     })
 
     it('should create a standard WMS query from a populated service address', () => {
-        const mapService = new MapService()
+        const mapService = new MapService(serviceAddress)
         const url = mapService.buildWmsUrl(`${serviceAddress}?request=GetCapabilities&service=WMS`)
         
         expect(url).toBe(`${serviceAddress}?request=GetCapabilities&service=WMS`)
