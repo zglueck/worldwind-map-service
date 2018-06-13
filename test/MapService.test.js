@@ -27,5 +27,29 @@ describe('WMS URL Builder', () => {
     })
 })
 
+describe('WMTS URL Builder', () => {
 
+    const serviceAddress = 'https://tiles.maps.eox.at/wmts'
 
+    it('should create a standard WMS query from a standard service address', () => {
+        const mapService = new MapService()
+        const url = mapService.buildWmtsUrl(serviceAddress)
+        
+        expect(url).toBe(`${serviceAddress}?service=WMTS&request=GetCapabilities`)
+    })
+
+    it('should create a standard WMS query from a populated service address', () => {
+        const mapService = new MapService()
+        const url = mapService.buildWmtsUrl(`${serviceAddress}?request=GetCapabilities&service=WMTS`)
+        
+        expect(url).toBe(`${serviceAddress}?request=GetCapabilities&service=WMTS`)
+    })
+
+    it('should create a standard WMS query from a service address with prepopulated key', () => {
+        const mapService = new MapService()
+        const keyString = '?key=1234'
+        const url = mapService.buildWmtsUrl(`${serviceAddress}${keyString}`)
+        
+        expect(url).toBe(`${serviceAddress}${keyString}&service=WMTS&request=GetCapabilities`)
+    })
+})
